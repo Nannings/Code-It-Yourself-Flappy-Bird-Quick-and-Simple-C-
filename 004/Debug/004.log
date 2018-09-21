@@ -1,6 +1,10 @@
 ﻿  FlappyBird.cpp
-d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(73): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(72): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(76): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(101): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(102): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(106): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+d:\cloud\stackip\development\c++\004\004\004\flappybird.cpp(107): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   004.vcxproj -> D:\Cloud\stackip\Development\C++\004\004\Debug\004.exe

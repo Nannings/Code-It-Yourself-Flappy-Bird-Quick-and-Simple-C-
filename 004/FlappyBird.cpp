@@ -15,14 +15,25 @@ private:
 
 	float fGravity = 100.0f;
 
+	float fSectionWidth;
+	list<int> listSection;
+	float fLevelPosition = 0.0f;
+
+	bool bHasCollided = false;
+
 protected:
 	virtual bool OnUserCreate() {
+
+		listSection = {0, 0, 0, 0};
+		fSectionWidth = (float)ScreenWidth() / (float)(listSection.size() - 1);	
+
 		return true;
 	}
 
 	virtual bool OnUserUpdate(float fElapsedTime) {
 
-		if (m_keys[VK_SPACE].bPressed)
+		//brid physics
+		if (m_keys[VK_SPACE].bPressed && fBirdVelocity >= fGravity / 10.0f)
 		{
 			fBirdAcceleration = 0.0f;
 			fBirdVelocity = -fGravity / 4.0f;
@@ -36,12 +47,55 @@ protected:
 			fBirdAcceleration = fGravity;
 		}
 
-		Fill(0, 0, ScreenWidth(), ScreenHeight(), L' ');
-
 		fBirdVelocity += fBirdAcceleration * fElapsedTime;
 		fBirdPosition += fBirdVelocity * fElapsedTime;
 
+		//level
+		float levelSpeed = 14.0f;
+		fLevelPosition += levelSpeed * fElapsedTime;
+
+		if (fLevelPosition > fSectionWidth) 
+		{
+			fLevelPosition -= fSectionWidth;
+			listSection.pop_front();
+			int i = rand() % (ScreenHeight() - 20);
+			if (i <= 10) i = 0;
+			listSection.push_back(i);
+		}
+
+		//draw
+		Fill(0, 0, ScreenWidth(), ScreenHeight(), L' ');
+
+		int nSection = 0;
+		for (auto s : listSection ) {
+			if (s != 0) {
+				Fill(nSection * fSectionWidth + 10 - fLevelPosition, ScreenHeight() - s,
+					nSection * fSectionWidth + 15 - fLevelPosition, ScreenHeight(),
+					PIXEL_SOLID, FG_GREEN);
+
+				Fill(nSection * fSectionWidth + 10 - fLevelPosition, 0,
+					nSection * fSectionWidth + 15 - fLevelPosition, ScreenHeight() - s - 15,
+					PIXEL_SOLID, FG_GREEN);
+			}
+			nSection++;
+		}
+
 		int nBirdX = (int)(ScreenWidth() / 3.0f);
+
+		bHasCollided = fBirdPosition < 2 || fBirdPosition > ScreenHeight() - 2 ||
+			m_bufScreen[(int)(fBirdPosition + 0) * ScreenWidth() + nBirdX].Char.UnicodeChar != L' ' ||
+			m_bufScreen[(int)(fBirdPosition + 1) * ScreenWidth() + nBirdX].Char.UnicodeChar != L' ' ||
+			m_bufScreen[(int)(fBirdPosition + 0) * ScreenWidth() + nBirdX + 6].Char.UnicodeChar != L' ' ||
+			m_bufScreen[(int)(fBirdPosition + 1) * ScreenWidth() + nBirdX + 6].Char.UnicodeChar != L' ';
+
+		if (bHasCollided) 
+		{
+			bHasCollided = false;
+			listSection = { 0, 0, 0, 0 };
+			fBirdAcceleration = 0.0f;
+			fBirdVelocity = 0.0f;
+			fBirdPosition = ScreenHeight() / 2.0f;
+		}
 
 		if (fBirdVelocity > 0) {
 			DrawString(nBirdX, fBirdPosition + 0, L"\\\\\\");
